@@ -1,10 +1,9 @@
-package com.azuka.networkcache.feature
+package com.azuka.networkcache.presentation
 
 import androidx.lifecycle.*
 import com.azuka.networkcache.data.Resource
 import com.azuka.networkcache.domain.model.Post
 import com.azuka.networkcache.domain.usecase.AppUseCase
-import javax.inject.Inject
 
 
 /**

@@ -7,7 +7,7 @@ import com.azuka.networkcache.data.remote.response.ApiResponse
 import com.azuka.networkcache.data.remote.response.PostResponse
 import com.azuka.networkcache.domain.model.Post
 import com.azuka.networkcache.domain.repository.AppRepository
-import com.azuka.networkcache.feature.PostDataMapper
+import com.azuka.networkcache.presentation.PostDataMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
@@ -25,7 +25,7 @@ class AppRepositoryImpl(
                 }
             }
 
-            override fun shouldFetch(data: List<Post>?): Boolean = true
+            override fun shouldFetch(data: List<Post>?): Boolean = data.isNullOrEmpty()
 
 
             override suspend fun createCall(): Flow<ApiResponse<List<PostResponse>>> {

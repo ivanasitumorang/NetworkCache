@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NetworkCache">
-        <activity android:name=".feature.PostActivity">
+        <activity android:name=".presentation.PostActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

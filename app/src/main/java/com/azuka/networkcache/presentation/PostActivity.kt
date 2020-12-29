@@ -1,12 +1,12 @@
-package com.azuka.networkcache.feature
+package com.azuka.networkcache.presentation
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.azuka.networkcache.NetworkCacheApp
 import com.azuka.networkcache.R
 import com.azuka.networkcache.base.ViewModelFactory
+import com.azuka.networkcache.presentation.adapter.PostAdapter
 import kotlinx.android.synthetic.main.activity_post.*
 import javax.inject.Inject
 
@@ -27,8 +27,8 @@ class PostActivity : AppCompatActivity() {
         viewModel.getPosts()
 
         viewModel.postList.observe(this, {
-            Log.i("Hasil", it.toString())
-            tvData.text = it.toString()
+            val adapter = PostAdapter(it)
+            rvPost.adapter = adapter
         })
     }
 

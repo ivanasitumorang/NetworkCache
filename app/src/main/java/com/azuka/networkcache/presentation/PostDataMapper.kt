@@ -1,4 +1,4 @@
-package com.azuka.networkcache.feature
+package com.azuka.networkcache.presentation
 
 import com.azuka.networkcache.base.utils.Mapper
 import com.azuka.networkcache.data.local.entity.PostEntity
