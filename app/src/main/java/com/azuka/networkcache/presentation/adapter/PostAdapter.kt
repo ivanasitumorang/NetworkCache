@@ -3,6 +3,7 @@ package com.azuka.networkcache.presentation.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.azuka.networkcache.R
 import com.azuka.networkcache.domain.model.Post
@@ -22,8 +23,13 @@ class PostAdapter(private val postList: List<Post>) :
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(post: Post) {
             itemView.apply {
-                if (post.isExpanded) llSubItem.visibility = View.VISIBLE
-                else llSubItem.visibility = View.GONE
+                if (post.isExpanded) {
+                    llSubItem.visibility = View.VISIBLE
+                    llItem.setBackgroundColor(ContextCompat.getColor(context, R.color.purple_50))
+                } else {
+                    llSubItem.visibility = View.GONE
+                    llItem.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
+                }
 
                 tvTitle.text = post.title
                 tvBody.text = post.body
