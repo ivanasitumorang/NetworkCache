@@ -1,20 +1,55 @@
 package com.azuka.networkcache.data.remote
 
+import com.azuka.networkcache.data.NetworkBoundResource
 import com.azuka.networkcache.data.Resource
 import com.azuka.networkcache.data.local.LocalDataSource
+import com.azuka.networkcache.data.remote.response.ApiResponse
+import com.azuka.networkcache.data.remote.response.PostResponse
 import com.azuka.networkcache.domain.model.Post
 import com.azuka.networkcache.domain.repository.AppRepository
+import com.azuka.networkcache.feature.PostDataMapper
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 
 class AppRepositoryImpl(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
 ) : AppRepository {
     override fun getPosts(): Flow<Resource<List<Post>>> {
-        TODO("Not yet implemented")
+        return object : NetworkBoundResource<List<PostResponse>, List<Post>>() {
+            override fun loadFromDB(): Flow<List<Post>> {
+                return localDataSource.getPosts().map {
+                    PostDataMapper.mapEntitiesToDomains(it)
+                }
+            }
+
+            override fun shouldFetch(data: List<Post>?): Boolean = true
+
+
+            override suspend fun createCall(): Flow<ApiResponse<List<PostResponse>>> {
+                return remoteDataSource.getPosts()
+            }
+
+            override suspend fun saveCallResult(data: List<PostResponse>) {
+                val postList = PostDataMapper.mapResponsesToEntities(data)
+                localDataSource.insertPosts(postList)
+            }
+
+        }.asFlow()
     }
 
     override fun searchPost(query: String): Flow<Resource<List<Post>>> {
-        TODO("Not yet implemented")
+
+        return flow {
+            emit(Resource.Loading())
+
+            emitAll(localDataSource.searchPost(query).map {
+                Resource.Success(
+                    PostDataMapper.mapEntitiesToDomains(it)
+                )
+            })
+        }
     }
 }

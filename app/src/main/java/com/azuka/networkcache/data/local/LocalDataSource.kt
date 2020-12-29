@@ -12,5 +12,5 @@ import kotlinx.coroutines.flow.Flow
 interface LocalDataSource {
     fun getPosts(): Flow<List<PostEntity>>
     fun searchPost(query: String): Flow<List<PostEntity>>
-    fun insertPosts()
+    fun insertPosts(postEntities: List<PostEntity>)
 }

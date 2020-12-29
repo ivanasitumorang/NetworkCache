@@ -11,6 +11,8 @@ import com.azuka.networkcache.data.remote.RemoteDataSource
 import com.azuka.networkcache.data.remote.RemoteDataSourceImpl
 import com.azuka.networkcache.data.remote.network.AppNetworkService
 import com.azuka.networkcache.domain.repository.AppRepository
+import com.azuka.networkcache.domain.usecase.AppUseCase
+import com.azuka.networkcache.domain.usecase.AppUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -43,4 +45,10 @@ class RepositoryModule() {
         remoteDataSource: RemoteDataSource
     ): AppRepository =
         AppRepositoryImpl(localDataSource, remoteDataSource)
+
+    @Singleton
+    @Provides
+    fun provideUseCase(
+        repository: AppRepository
+    ): AppUseCase = AppUseCaseImpl(repository)
 }
