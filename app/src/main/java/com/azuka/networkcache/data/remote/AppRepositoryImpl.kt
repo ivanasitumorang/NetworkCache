@@ -44,11 +44,12 @@ class AppRepositoryImpl(
 
         return flow {
             emit(Resource.Loading())
+            val loadFromDb = localDataSource.searchPost(query).map {
+                PostDataMapper.mapEntitiesToDomains(it)
+            }
 
-            emitAll(localDataSource.searchPost(query).map {
-                Resource.Success(
-                    PostDataMapper.mapEntitiesToDomains(it)
-                )
+            emitAll(loadFromDb.map {
+                Resource.Success(it)
             })
         }
     }

@@ -19,6 +19,9 @@ interface PostDao {
     @Query("SELECT * FROM t_post")
     fun getPosts(): Flow<List<PostEntity>>
 
+    @Query("SELECT * FROM t_post WHERE title LIKE '%' || :query || '%'")
+    fun searchPosts(query: String): Flow<List<PostEntity>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPosts(postEntities: List<PostEntity>)
 }

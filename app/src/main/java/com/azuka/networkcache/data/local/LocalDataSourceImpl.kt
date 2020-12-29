@@ -16,7 +16,7 @@ class LocalDataSourceImpl(
     }
 
     override fun searchPost(query: String): Flow<List<PostEntity>> {
-        return postDao.getPosts()
+        return postDao.searchPosts(query)
     }
 
     override fun insertPosts(postEntities: List<PostEntity>) {
