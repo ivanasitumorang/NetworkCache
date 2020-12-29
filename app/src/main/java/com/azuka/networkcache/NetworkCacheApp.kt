@@ -11,5 +11,6 @@ import com.azuka.networkcache.di.DaggerAppComponent
 
 open class NetworkCacheApp : Application() {
 
-    val appComponent = DaggerAppComponent.factory().create(applicationContext)
+
+    val appComponent by lazy { DaggerAppComponent.factory().create(applicationContext) }
 }
