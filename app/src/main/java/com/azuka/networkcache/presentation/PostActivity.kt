@@ -30,8 +30,11 @@ class PostActivity : AppCompatActivity() {
         viewModel.getPosts()
 
         viewModel.postList.observe(this, {
-            val adapter = PostAdapter(it)
-            rvPost.adapter = adapter
+            it?.let {
+                val adapter = PostAdapter(it)
+                rvPost.adapter = adapter
+            }
+
         })
     }
 

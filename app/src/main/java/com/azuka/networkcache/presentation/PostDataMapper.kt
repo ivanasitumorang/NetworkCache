@@ -23,4 +23,8 @@ object PostDataMapper : Mapper<PostEntity, Post, PostResponse>() {
     override fun mapResponseToEntity(response: PostResponse): PostEntity = with(response) {
         PostEntity(id, userId, title, body)
     }
+
+    override fun mapResponseToDomain(response: PostResponse): Post = with(response) {
+        Post(id, userId, title, body)
+    }
 }

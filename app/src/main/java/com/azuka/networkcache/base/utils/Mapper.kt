@@ -22,4 +22,10 @@ abstract class Mapper<Entity, Domain, Response> {
         responses.map { response ->
             mapResponseToEntity(response)
         }
+
+    abstract fun mapResponseToDomain(response: Response): Domain
+    fun mapResponsesToDomains(responses: List<Response>): List<Domain> =
+        responses.map { response ->
+            mapResponseToDomain(response)
+        }
 }
