@@ -40,7 +40,6 @@ interface AppComponent {
 
     fun inject(postActivity: PostActivity)
 
-    //    fun viewModelFactory(): ViewModelFactory
     fun appCoroutineContextProvider(): CoroutineContextProvider
     fun networkProvider(): Retrofit
     fun restDao(): PostDao
