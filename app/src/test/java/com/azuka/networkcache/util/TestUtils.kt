@@ -18,6 +18,12 @@ import java.io.StringWriter
 object TestUtils {
     fun getEmptyPost() = emptyList<Post>()
 
+    fun getSearchPosts(query: String): List<Post> {
+        return getPostsFromJson().filter {
+            it.title.contains(query)
+        }
+    }
+
     fun getPostsFromJson(): List<Post> {
         val inputStream =
             javaClass.classLoader?.getResourceAsStream("dummy_posts.json")
