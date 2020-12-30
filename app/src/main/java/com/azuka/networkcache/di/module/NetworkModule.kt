@@ -1,5 +1,6 @@
 package com.azuka.networkcache.di.module
 
+import com.azuka.networkcache.BuildConfig
 import com.azuka.networkcache.data.remote.network.AppNetworkService
 import dagger.Module
 import dagger.Provides
@@ -34,7 +35,7 @@ class NetworkModule {
     @Singleton
     fun provideApiService(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://jsonplaceholder.typicode.com/")
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
